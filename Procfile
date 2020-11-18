@@ -1,1 +1,1 @@
-web: uvicorn --port $PORT --ws websockets project.asgi:application
+web: uvicorn --port $PORT --host 0.0.0.0 project.asgi:application
