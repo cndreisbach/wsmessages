@@ -18,6 +18,11 @@ django-registration-redux = "*"
 twisted = "*"
 channels = "*"
 channels-redis = "*"
+psycopg2 = "*"
+django-heroku = "*"
+uvicorn = "*"
+daphne = "*"
+websockets = "*"
 
 [requires]
 python_version = "3.8"

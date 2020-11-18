@@ -17,7 +17,8 @@ import environ
 
 env = environ.Env(
     # set casting, default value
-    DEBUG=(bool, False), )
+    DEBUG=(bool, False),
+    USE_REDIS=(bool, False))
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / ...
@@ -152,12 +153,23 @@ LOGIN_REDIRECT_URL = '/'
 
 # Channels
 
-ASGI_APPLICATION = "project.asgi.application"
+ASGI_APPLICATION = "project.routing.application"
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [('127.0.0.1', 6379)],
-        },
-    },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
+
+if env('USE_REDIS'):
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [env('REDIS_URL')],
+            },
+        },
+    }
+
+import django_heroku
+django_heroku.settings(locals())
+del DATABASES['default']['OPTIONS']['sslmode']
