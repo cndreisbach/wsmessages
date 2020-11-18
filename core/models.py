@@ -23,7 +23,6 @@ class Boop(TimeStampedModel, models.Model):
 @receiver(post_save, sender=Boop)
 def send_new_boop_message(sender, instance, **kwargs):
     channel_layer = channels.layers.get_channel_layer()
-    print("send_new_boop")
     async_to_sync(channel_layer.group_send)(
         f"user-{instance.recipient.pk}", {
             "type": "boop.create",
