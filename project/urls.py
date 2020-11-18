@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
     path('', views.homepage, name='homepage'),
+    path('books/', views.boops, name='boops'),
     path('boop/<int:recipient_pk>/', views.send_boop, name='send_boop')
 ]
 

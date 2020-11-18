@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Watch Boops</h1>
+
+<div>
+  <button id="test-button">Test</button>
+</div>
+
+<ul id="booplist">
+</ul>
+
+<script>
+const boopSocket = new WebSocket('ws://' + window.location.host + '/ws/');
+
+boopSocket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    console.log(data)
+    if (data.type === 'boop') {
+      document.querySelector("#booplist").innerHTML += `<li>Boop from ${data.sender}</li>`
+    }
+};
+
+boopSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+};
+
+document.querySelector("#test-button").addEventListener('click', (event) => {
+  event.preventDefault();
+
+  boopSocket.send(JSON.stringify({
+      'message': 'boop'
+  }));
+})
+</script>
+{% endblock %}

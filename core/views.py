@@ -10,6 +10,11 @@ def homepage(request):
 
 
 @login_required
+def boops(request):
+    return render(request, "boops.html")
+
+
+@login_required
 def send_boop(request, recipient_pk):
     recipient = get_object_or_404(User, pk=recipient_pk)
 

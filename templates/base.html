@@ -8,6 +8,14 @@
   {% block meta %}{% endblock %}
 </head>
 <body class="mw8 center pa2 sans-serif">
+  <nav>
+    <ul class="list pl0 flex">
+    {% if user.is_authenticated %}
+    <li class="pr2">Logged in as {{ user.username }}</li>
+    <li class="pr2"><a href="{% url 'auth_logout' %}">Logout</a></li>
+    {% endif %}
+    </ul>
+  </nav>
   {% block content %}
   {% endblock %}
 </body>

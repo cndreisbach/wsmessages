@@ -15,6 +15,9 @@ django-debug-toolbar = "*"
 werkzeug = "*"
 django-environ = "*"
 django-registration-redux = "*"
+twisted = "*"
+channels = "*"
+channels-redis = "*"
 
 [requires]
 python_version = "3.8"
