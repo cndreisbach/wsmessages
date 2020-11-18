@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Boops</h1>
+
+<div class="flex">
+  <div>
+    {% for user in users %}
+      <div class="mv2 pa2 ba b--black">
+        <div class="b f4">{{ user.username }}</div>
+        <div>
+          <form action="{% url 'send_boop' recipient_pk=user.pk %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Send boop</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
